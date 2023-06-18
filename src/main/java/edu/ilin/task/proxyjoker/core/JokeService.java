@@ -1,6 +1,6 @@
-package edu.ilin.task.proxyjoker.services;
+package edu.ilin.task.proxyjoker.core;
 
-import edu.ilin.task.proxyjoker.models.Joke;
+import edu.ilin.task.proxyjoker.core.models.Joke;
 
 import java.util.List;
 

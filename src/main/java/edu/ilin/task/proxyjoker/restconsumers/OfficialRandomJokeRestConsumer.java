@@ -1,31 +1,34 @@
 package edu.ilin.task.proxyjoker.restconsumers;
 
-import edu.ilin.task.proxyjoker.core.RestConsumer;
+import edu.ilin.task.proxyjoker.core.JokeRestConsumer;
 import edu.ilin.task.proxyjoker.core.dtos.ExternalJokeDTO;
-import edu.ilin.task.proxyjoker.core.models.Joke;
 import edu.ilin.task.proxyjoker.restconsumers.dtos.OfficialJokeDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.List;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-public class OfficialRandomRestConsumer implements RestConsumer {
+@Service
+public class OfficialRandomJokeRestConsumer implements JokeRestConsumer {
 
 
     private static final String JOKE_API_URL = "https://official-joke-api.appspot.com/random_joke" ;
     @Override
-    public List<Joke> getJokesFromAPI(int count) {
+    public ExternalJokeDTO getJokeFromAPI() {
         RestTemplate restTemplate = new RestTemplate();
 
-        OfficialJokeDTO user = restTemplate.getForObject(JOKE_API_URL, OfficialJokeDTO.class);
+        OfficialJokeDTO joke = restTemplate.getForObject(JOKE_API_URL, OfficialJokeDTO.class);
 
-        return null;
+        //TODO need to handle nulls
+        if (joke == null) {
+            return null;
+        }
+
+        return convertToExternalDTO(joke);
     }
 
 
-    private ExternalJokeDTO convertToExternalDTOs(OfficialJokeDTO officialJokeDTO) {
+    //TODO need to add converters
+    private ExternalJokeDTO convertToExternalDTO(OfficialJokeDTO officialJokeDTO) {
         return new ExternalJokeDTO(officialJokeDTO.getSetup(), officialJokeDTO.getPunchline());
     }
 }

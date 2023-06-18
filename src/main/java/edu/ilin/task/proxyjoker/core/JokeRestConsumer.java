@@ -1,9 +1,8 @@
 package edu.ilin.task.proxyjoker.core;
 
-import edu.ilin.task.proxyjoker.core.models.Joke;
+import edu.ilin.task.proxyjoker.core.dtos.ExternalJokeDTO;
 
-import java.util.List;
 
-public interface RestConsumer {
-    List<Joke> getJokesFromAPI(int count);
+public interface JokeRestConsumer {
+    ExternalJokeDTO getJokeFromAPI();
 }
